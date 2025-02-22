@@ -1,101 +1,155 @@
+/* src/app/page.js */
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const canvasRef = useRef(null);
+  const [step, setStep] = useState(0);
+  const [showOptions, setShowOptions] = useState(false);
+  const router = useRouter();
+  const chatMessages = [
+    "Hello, traveler... Welcome to my digital universe.",
+    "I am JaayTea, your AI guide. I’m here to assist you.",
+    "You seem new here. Let me show you around.",
+    "Did you know AI can't drink coffee? It's a real tragedy.",
+    "If I had a dollar for every bug I debugged... well, I'd still be an AI with no wallet.",
+    "Hold on, calculating the meaning of life... nope, still 42.",
+    "Are you lost, or did you just take a wrong turn in cyberspace?",
+    "What brings you to this part of the universe?"
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    
+    resizeCanvas();
+    
+    const stars = Array.from({ length: 100 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2,
+      speed: Math.random() * 0.5 + 0.2,
+    }));
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#02010a";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      stars.forEach((star) => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) star.y = 0;
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+    window.addEventListener("resize", resizeCanvas);
+    return () => window.removeEventListener("resize", resizeCanvas);
+  }, []);
+
+  useEffect(() => {
+    chatMessages.forEach((msg, index) => {
+      setTimeout(() => {
+        setStep(index + 1);
+        if (index === chatMessages.length - 1) {
+          setTimeout(() => setShowOptions(true), 3000);
+        }
+      }, (index + 1) * 5000);
+    });
+  }, []);
+
+  const glitchEffect = {
+    textShadow: "2px 2px 4px rgba(255, 0, 150, 0.7), -2px -2px 4px rgba(0, 255, 255, 0.7)"
+  };
+
+  return (
+    <div className="relative w-full h-screen flex flex-col items-center justify-between text-white overflow-hidden">
+      <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full" />
+      
+      {/* Left-side rocket animation */}
+      <motion.div
+        initial={{ y: "100vh" }}
+        animate={{ y: "-100vh" }}
+        transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+        className="absolute left-10 bottom-0 w-32 h-32"
+      >
+        <Image src="/rocket.png" alt="Rocket Left" width={128} height={128} />
+      </motion.div>
+      
+      {/* Right-side rocket animation */}
+      <motion.div
+        initial={{ y: "100vh" }}
+        animate={{ y: "-100vh" }}
+        transition={{ repeat: Infinity, duration: 8, ease: "linear", delay: 4 }}
+        className="absolute right-10 bottom-0 w-32 h-32"
+      >
+        <Image src="/rocket.png" alt="Rocket Right" width={150} height={128} />
+      </motion.div>
+      
+      <div className="relative flex flex-col items-center justify-center flex-grow p-6">
+        {chatMessages.map((msg, index) => (
+          step === index + 1 && (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="text-xl md:text-2xl text-center"
+              style={glitchEffect}
+            >
+              <Typewriter
+                words={[msg]}
+                typeSpeed={50}
+                deleteSpeed={30}
+                delaySpeed={1000}
+              />
+            </motion.div>
+          )
+        ))}
+        
+        {showOptions && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ duration: 1 }}
+            className="flex flex-col space-y-4 mt-6"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            {["I want to see your projects", "Tell me about yourself", "How can I contact you?"].map((option, index) => (
+              <motion.div
+                key={index}
+                className="text-lg md:text-2xl text-cyan-400 cursor-pointer"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: index * 1, duration: 1 }}
+                whileHover={{ scale: 1.1 }}
+                style={glitchEffect}
+                onClick={() => {
+                  if (index === 0) router.push("/projects");
+                  if (index === 1) router.push("/about");
+                  if (index === 2) router.push("/contact");
+                }}
+              >
+                {option}
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
