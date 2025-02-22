@@ -1,6 +1,9 @@
-const Footer = () => {
+"use client";
+const Footer = ({ isNavbarOpen }) => {
   return (
-    <footer className="bg-gradient-to-t from-gray-950 to-black text-center p-4 text-white border-t border-gray-700 w-full fixed bottom-0 left-0 flex flex-col items-center space-y-2 z-50">
+    <footer 
+      className={`bg-gradient-to-t from-gray-950 to-black text-center p-4 text-white border-t border-gray-700 w-full fixed bottom-0 left-0 flex flex-col items-center space-y-2 z-50 transition-all duration-300 ${isNavbarOpen ? 'hidden' : 'flex'}`}
+    >
       <div className="relative space-x-4 pointer-events-auto">
         <a 
           href="https://www.linkedin.com/" 

@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 Personal Portfolio - Next.js & Tailwind CSS
 
-## Getting Started
+Welcome to my **Personal Portfolio Website**, built with **Next.js, Tailwind CSS, and Framer Motion**. This portfolio showcases my **projects, blogs, testimonials, and contact information** in a futuristic, interactive design.
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+✅ **Modern UI/UX** with animations and smooth transitions.  
+✅ **Responsive Design** - Fully optimized for mobile and desktop.  
+✅ **Dark Theme** - Consistent styling across all pages.  
+✅ **EmailJS Integration** - Contact form submissions go directly to my email.  
+✅ **AI-inspired Sections** - Blog, Testimonials, and Developer Dashboard.  
+✅ **Dynamic Backgrounds** - Matching themes for Blog, Projects, and Contact pages.  
+
+## 📂 Project Structure
+
+```
+my-portfolio/
+│── public/              # Static assets (images, logos, icons)
+│── src/
+│   ├── app/
+│   │   ├── about/       # About Page
+│   │   ├── blog/        # Blog & Insights Page
+│   │   ├── contact/     # Contact Page
+│   │   ├── projects/    # Projects Page
+│   │   ├── testimonials/ # Testimonials Page
+│   │   ├── page.js      # Main Entry Point
+│   ├── components/      # Reusable Components (Navbar, Footer, etc.)
+│   ├── data/            # Static JSON data for projects & blogs
+│── .gitignore           # Git ignore files
+│── next.config.mjs      # Next.js configuration
+│── tailwind.config.mjs  # Tailwind CSS configuration
+│── package.json         # Project dependencies
+│── README.md            # Documentation (this file)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+🔹 **Framework:** [Next.js 15](https://nextjs.org/)  
+🔹 **Styling:** [Tailwind CSS](https://tailwindcss.com/)  
+🔹 **Animations:** [Framer Motion](https://www.framer.com/motion/)  
+🔹 **Forms & Emails:** [EmailJS](https://www.emailjs.com/)  
+🔹 **Icons:** [Lucide Icons & FontAwesome](https://lucide.dev/)  
+🔹 **Hosting:** [Netlify](https://www.netlify.com/)  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠 Installation & Setup
 
-## Learn More
+To run the project locally, follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+# Clone the repository
+git clone git@github.com:AmirJT/personal-website.git
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Navigate to the project folder
+cd my-portfolio
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Install dependencies
+npm install
 
-## Deploy on Vercel
+# Run the development server
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Now, open **http://localhost:3000** in your browser to view the website.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Deployment
+
+This project is deployed using **Netlify**.
+
+To manually deploy via Netlify CLI:
+```sh
+# Install Netlify CLI (if not installed)
+npm install -g netlify-cli
+
+# Build the project
+npm run build
+
+# Deploy to Netlify
+netlify deploy
+```
+Alternatively, you can **connect your GitHub repo to Netlify** for automatic deployments.
+
+## 📩 Contact
+
+If you have any questions, feel free to reach out:
+
+📧 Email: [ahjt28@gmail.com](mailto:ahjt28@gmail.com)  
+🐙 GitHub: [github.com/AmirJT](https://github.com/AmirJT)
+
+---
+
+💡 **Built with passion & Next.js!** 🚀
